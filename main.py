@@ -6,8 +6,6 @@ import os
 if __name__ == '__main__':
     L = instaloader.Instaloader()
 
-    print(os.environ.keys())
-
     # Login information goes here.
     username = os.environ.get('INSTA_LOGIN')
     password = os.environ.get('INSTA_PASSWORD')
@@ -20,7 +18,7 @@ if __name__ == '__main__':
     try:
         for post in post_iterator:
             hashtags = post.caption_hashtags
-            print(hashtags)
+            #print(hashtags)
             for tag in hashtags:
                 if tag not in hashtag_dict:
                     hashtag_dict[tag] = 1
@@ -30,9 +28,9 @@ if __name__ == '__main__':
     except KeyboardInterrupt:
         save("dict.json", post_iterator.freeze())
 
-    hashtag_dict.keys.sort()
+    sorted_hashtag_dict = dict(sorted(hashtag_dict.items()))
 
     with open('dict.csv', 'w') as csv_file:
         writer = csv.writer(csv_file)
-        for key, value in hashtag_dict.items():
+        for key, value in sorted_hashtag_dict.items():
             writer.writerow([key, value])
