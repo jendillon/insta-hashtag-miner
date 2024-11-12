@@ -1,7 +1,6 @@
-from instaloader import instaloader
-from numpy import save
 import csv
 import os
+from instaloader import instaloader
 
 if __name__ == '__main__':
     L = instaloader.Instaloader()
@@ -11,8 +10,8 @@ if __name__ == '__main__':
     password = os.environ.get('INSTA_PASSWORD')
     L.login(username, password)
 
-    profile_name = 'seekingsomaart'
-    profile = instaloader.Profile.from_username(L.context, profile_name)
+    PROFILE_NAME = 'seekingsomaart'
+    profile = instaloader.Profile.from_username(L.context, PROFILE_NAME)
     post_iterator = profile.get_posts()
     hashtag_dict = {}
     try:
@@ -30,7 +29,7 @@ if __name__ == '__main__':
 
     sorted_hashtag_dict = dict(sorted(hashtag_dict.items()))
 
-    with open('dict.csv', 'w') as csv_file:
+    with open('dict.csv', 'w', encoding="utf-8") as csv_file:
         writer = csv.writer(csv_file)
         for key, value in sorted_hashtag_dict.items():
             writer.writerow([key, value])
