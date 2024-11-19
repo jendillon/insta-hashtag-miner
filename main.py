@@ -1,3 +1,8 @@
+"""
+Counts which hashtags on a given instagram account are the most used.
+Downloads the profile, counts instances of each hashtags from all posts
+and writes the results to a sorted .csv
+"""
 import csv
 import os
 import instaloader
