@@ -1,6 +1,6 @@
 import csv
 import os
-from instaloader import instaloader
+import instaloader
 PROFILE_NAME = 'seekingsomaart'
 
 def save_sorted_csv( unsorted_dict ):
@@ -20,18 +20,17 @@ def login():
     loader = instaloader.Instaloader()
     username = os.environ.get('INSTA_LOGIN')
     password = os.environ.get('INSTA_PASSWORD')
-    L.login(username, password)
+    loader.login(username, password)
     return loader
 
 if __name__ == '__main__':
-    """Using locally stored instagram credentials, counts instances of 
-    hashtags on a given instagram account, and outputs them to a .csv"""
-
     L = login()
+
     profile = instaloader.Profile.from_username(L.context, PROFILE_NAME)
     post_iterator = profile.get_posts()
 
     hashtag_dict = {}
+
     try:
         for post in post_iterator:
             hashtags = post.caption_hashtags
@@ -46,5 +45,3 @@ if __name__ == '__main__':
         save_sorted_csv(hashtag_dict)
     finally:
         save_sorted_csv(hashtag_dict)
-
-
